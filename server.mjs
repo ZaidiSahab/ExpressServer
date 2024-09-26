@@ -14,8 +14,22 @@ app.get('/profile', (req, res) => {
 
 })
 
+
+//http://abcweather.com/weather/karachi?unit=metric&side=west&age=23
+
 app.get('/weather/:cityName', (req, res) => {
     console.log('This is Profile Page!', new Date())
+
+    console.log("req.params.cityName",req.params.cityName)
+
+
+    //console.log("req.params.side",req.params.side)
+
+
+    console.log("req.query.unit",req.query.unit)
+    console.log("req.query.side",req.query.side)
+    console.log("req.query.age",req.query.age)
+
 
     let weatherData = {
         karachi: {
