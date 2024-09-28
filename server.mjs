@@ -5,7 +5,7 @@ const app = express()
 const __dirname = path.resolve();
 // app.use(cors())
 
-
+app.use(express.json())
 
 
 app.get('/profile', (req, res) => {
@@ -17,18 +17,26 @@ app.get('/profile', (req, res) => {
 
 //http://abcweather.com/weather/karachi?unit=metric&side=west&age=23
 
+
+
+
 app.get('/weather/:cityName', (req, res) => {
     console.log('This is Profile Page!', new Date())
 
-    console.log("req.params.cityName",req.params.cityName)
+    console.log("req.params.cityName", req.params.cityName)
 
 
     //console.log("req.params.side",req.params.side)
 
 
-    console.log("req.query.unit",req.query.unit)
-    console.log("req.query.side",req.query.side)
-    console.log("req.query.age",req.query.age)
+    console.log("req.query.unit", req.query.unit)
+    console.log("req.query.side", req.query.side)
+    console.log("req.query.age", req.query.age)
+
+    console.log("req.body.name", req.body.name)
+    console.log("req.body.class", req.body.class)
+    console.log("req.body.subject", req.body.subject)
+
 
 
     let weatherData = {
@@ -54,7 +62,7 @@ app.get('/weather/:cityName', (req, res) => {
     if (weatherDataToSend) {
         res.send(weatherDataToSend)
     }
-    else{
+    else {
         res.status(404).send(`weather data is not available for ${req.params.cityName}`
         );
 
@@ -63,6 +71,34 @@ app.get('/weather/:cityName', (req, res) => {
 
     res.send()
 })
+
+
+let comments = []
+
+app.post('/comment/:name', (req, res, next) => {
+    const name = req.params.name
+    const comment = req.body.comment
+
+    comments.push({
+        name: name,
+        comment: comment
+    })
+
+    res.send({
+        message: "comment posted successfully"
+    })
+
+})
+
+
+app.get('/comments', (req, res, next) => {
+
+    res.send(comments)
+
+})
+
+
+
 
 app.use('/', express.static(path.join(__dirname, 'public')))
 
