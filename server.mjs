@@ -15,96 +15,20 @@ app.get('/profile', (req, res) => {
 })
 
 
-//http://abcweather.com/weather/karachi?unit=metric&side=west&age=23
+app.get('/getHtmlFile', (req, res) => {
+    // Use path.join to get the absolute path to the HTML file
+    res.sendFile(path.join(__dirname, 'public', 'index.html')); 
+});
 
 
-
-
-app.get('/weather/:cityName', (req, res) => {
-    console.log('This is Profile Page!', new Date())
-
-    console.log("req.params.cityName", req.params.cityName)
-
-
-    //console.log("req.params.side",req.params.side)
-
-
-    console.log("req.query.unit", req.query.unit)
-    console.log("req.query.side", req.query.side)
-    console.log("req.query.age", req.query.age)
-
-    console.log("req.body.name", req.body.name)
-    console.log("req.body.class", req.body.class)
-    console.log("req.body.subject", req.body.subject)
-
-
-
-    let weatherData = {
-        karachi: {
-            city: "Karachi",
-            humidity: 44,
-            tempInC: 30,
-            high: 32,
-            low: 14
-        },
-        london: {
-            city: "london",
-            humidity: 44,
-            tempInC: 30,
-            high: 32,
-            low: 14
-        }
-    }
-
-    let userInputCityName = req.params.cityName.toLowerCase();
-    let weatherDataToSend = weatherData[userInputCityName]
-
-    if (weatherDataToSend) {
-        res.send(weatherDataToSend)
-    }
-    else {
-        res.status(404).send(`weather data is not available for ${req.params.cityName}`
-        );
-
-    }
-
-
-    res.send()
-})
-
-
-let comments = []
-
-app.post('/comment/:name', (req, res, next) => {
-    const name = req.params.name
-    const comment = req.body.comment
-
-    comments.push({
-        name: name,
-        comment: comment
-    })
-
-    res.send({
-        message: "comment posted successfully"
-    })
-
-})
-
-
-app.get('/comments', (req, res, next) => {
-
-    res.send(comments)
-
-})
-
-
+app.use('/static', express.static(path.join(__dirname, 'static')))
 
 
 app.use('/', express.static(path.join(__dirname, 'public')))
 
 
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}`)
 })
