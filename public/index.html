@@ -44,7 +44,7 @@ text-align: center;
 
     <div id="result" ></div>
 
-    <div id="comments"> 
+    <!-- <div id="comments"> 
 <h1>Comments</h1>
 
 
@@ -64,7 +64,7 @@ text-align: center;
      
 </div>
 
- 
+  -->
 
 
     
@@ -77,8 +77,10 @@ text-align: center;
         window.getWeather= function(){
             
             let cityName = document.querySelector("#cityName").value;
-//             http://localhost:3004/weather/${cityName}
-    axios.get(`/weather/${cityName}`)
+//           
+    axios.post(`/weather` , {
+        cityName:cityName
+    })
       .then(function (response) {
         console.log(response.data);
 //         {
@@ -89,7 +91,8 @@ text-align: center;
 // low:11
 
 //     }
-    document.querySelector("#result").innerHTML=`The weather is ${response.data.tempInCel}°C   `
+    
+document.querySelector("#result").innerHTML=response.data.humidity
     
       })
       .catch(function (error) {
@@ -102,74 +105,74 @@ text-align: center;
     }
     
 
-       document
-       .querySelector("#postCommentForm")
-       .addEventListener("submit",async(event)=>{
-        event.preventDefault();
-        let nameInput = document.querySelector("#nameInput").value;
-        let commentInput = document.querySelector("#commentInput").value;
+//        document
+//        .querySelector("#postCommentForm")
+//        .addEventListener("submit",async(event)=>{
+//         event.preventDefault();
+//         let nameInput = document.querySelector("#nameInput").value;
+//         let commentInput = document.querySelector("#commentInput").value;
             
 
-//             http://localhost:3004/weather/${cityName}
+// //             http://localhost:3004/weather/${cityName}
 
-try {
-
-
-    const axiosResponse = await axios.post(`/comment/${nameInput}`,{
-        comment:commentInput 
-    })
-// {
-// message:"message sent successfully"
-// }
+// try {
 
 
-    console.log(axiosResponse)    
+//     const axiosResponse = await axios.post(`/comment/${nameInput}`,{
+//         comment:commentInput 
+//     })
+// // {
+// // message:"message sent successfully"
+// // }
+
+
+//     console.log(axiosResponse)    
  
-    document.querySelector("#previousComments").innerHTML=
-    ` 
-    <div class="comment">
-        <h3 class="commentName">${nameInput}</h3>
-        <p ="commentText">${commentInput}</p>
-    </div>  
-     `
+//     document.querySelector("#previousComments").innerHTML=
+//     ` 
+//     <div class="comment">
+//         <h3 class="commentName">${nameInput}</h3>
+//         <p ="commentText">${commentInput}</p>
+//     </div>  
+//      `
     
 
     
-} catch (error) {
+// } catch (error) {
     
-    console.log(error.data);
-    document.querySelector("#result").innerHTML="Error in getting weather";
+//     console.log(error.data);
+//     document.querySelector("#result").innerHTML="Error in getting weather";
     
     
-}
+// }
 
        
     
-    });
+//     });
     
     
-    const getAllComments =async ()=>{
-        const axiosResponse=await axios.get("/comments");
+//     const getAllComments =async ()=>{
+//         const axiosResponse=await axios.get("/comments");
 
-console.log(axiosResponse.data );//[]    
+// console.log(axiosResponse.data );//[]    
      
-axiosResponse.data.map((eachComment)=>{
-    document.querySelector("#previousComments").innerHTML+=
+// axiosResponse.data.map((eachComment)=>{
+//     document.querySelector("#previousComments").innerHTML+=
 
-    ` 
-    <div class="comment">
-        <h3 id="commentName">${eachComment.name}</h3>
-        <p id="commentText">${eachComment.comment}</p>
-    </div>  
-     `
+//     ` 
+//     <div class="comment">
+//         <h3 id="commentName">${eachComment.name}</h3>
+//         <p id="commentText">${eachComment.comment}</p>
+//     </div>  
+//      `
     
-})
+// })
     
 
-    }
-    setTimeout(()=>{
-        getAllComments();
-    },100)
+//     }
+//     setTimeout(()=>{
+//         getAllComments();
+//     },100)
     
     </script>
     

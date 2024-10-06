@@ -21,6 +21,22 @@ app.get('/getHtmlFile', (req, res) => {
 });
 
 
+app.post("/weather" ,(req,res,next)=>{
+    console.log('req.body',req.body)
+
+   res.send({
+    
+    maxTemp:54,
+    minTemp:29,
+    humidity:21
+   })
+
+})
+
+
+
+
+
 app.use('/static', express.static(path.join(__dirname, 'static')))
 
 
