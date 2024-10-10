@@ -1,35 +1,55 @@
 import express from 'express'
 import cors from 'cors'
 import path from 'path'
-const app = express()
+const app = express();
 const __dirname = path.resolve();
 // app.use(cors())
+
+import postRouter from './routes/post.mjs'
+import commentRouter from './routes/comments.mjs'
+import feedRouter from './routes/feed.mjs'
+import authRouter from './routes/auth.mjs'
+
 
 app.use(express.json())
 
 
-app.get('/profile', (req, res) => {
-    console.log('This is Profile Page!', new Date())
-    res.send('Profile Page\n' + new Date())
+
+app.use(authRouter)
+
+
+
+app.use((req, res, next) => {
+    if (token === 'valid') {
+        next();
+
+    }
+    else {
+        res.send({ message: "token invalid" })
+    }
 
 })
 
 
-app.get('/getHtmlFile', (req, res) => {
-    // Use path.join to get the absolute path to the HTML file
-    res.sendFile(path.join(__dirname, 'static', 'VisualStudioSetup.exe')); 
-});
+app.use(postRouter)
+app.use(commentRouter)
+app.use(feedRouter)
 
 
-app.post("/weather" ,(req,res,next)=>{
-    console.log('req.body',req.body)
 
-   res.send({
-    
-    maxTemp:54,
-    minTemp:29,
-    humidity:21
-   })
+
+
+
+
+app.post("/api/v1/weather", (req, res, next) => {
+    console.log('req.body', req.body)
+
+    res.send({
+
+        maxTemp: 54,
+        minTemp: 29,
+        humidity: 21
+    })
 
 })
 
