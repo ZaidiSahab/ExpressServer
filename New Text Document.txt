@@ -1,0 +1,81 @@
+console.log("hi")
+
+
+
+app.get('/api/v1/post/:userId/:postId', (req, res, next) => {
+
+    console.log("Signup");
+    res.send("Post Created");
+
+})
+
+app.get('/api/v1/posts/:userId/:postId', (req, res, next) => {
+
+    console.log("Signup");
+    res.send("Post Created");
+
+})
+
+app.post('/api/v1/post', (req, res, next) => {
+
+    console.log("Signup");
+    res.send("Post Created");
+
+})
+
+
+app.put('/api/v1/post/:userId/:postId', (req, res, next) => {
+
+    console.log("Signup");
+    res.send("Post Created");
+
+})
+
+app.delete('/api/v1/post/:userId/:postId', (req, res, next) => {
+
+    console.log("Signup");
+    res.send("Post Created");
+
+})
+
+//FOR COMMENTS API'S
+
+app.get('api/v1/comment/:postId/:commentId', (req, res, next) => {
+
+    console.log("Signup");
+    res.send("Post Created");
+
+})
+
+
+app.get('api/v1/comments/:postId', (req, res, next) => {
+
+    console.log("Signup");
+    res.send("Post Created");
+
+})
+
+
+app.put('api/v1/comment/:postId/:commentId', (req, res, next) => {
+
+    console.log("Signup");
+    res.send("Post Created");
+
+})
+
+
+app.delete('api/v1/comment/:postId/:commentId', (req, res, next) => {
+
+    console.log("Signup");
+    res.send("Post Created");
+
+})
+
+
+//feed
+app.get('api/v1/feed/:userId', (req, res, next) => {
+
+    console.log("Signup");
+    res.send("Post Created");
+
+})
