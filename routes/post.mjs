@@ -3,16 +3,6 @@ let router = express.Router()
 
 
 
-
-
-
-
-
-
-
-
-
-
 // Get:/api/v1/post/:userId/:postId
 
 router.get('/api/v1/post/:userId/:postId', (req, res, next) => {
