@@ -1,51 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
-    
+
+
 </head>
 <style>
-a{
-    color: aqua;
-}
-    body{
-text-align: center;
+    a {
+        color: aqua;
+    }
+
+    body {
+        text-align: center;
         color: white;
         background-color: black;
     }
-  .comment  {
+
+    .comment {
         border: 2px solid black;
-    border-radius: 15px;
-    margin-top: 1rem;
-    padding: 1rem;
+        border-radius: 15px;
+        margin-top: 1rem;
+        padding: 1rem;
+    }
+
+    #result{
+        line-height: 50px;
     }
 </style>
-<body>
-    
- <a href="\static\VisualStudioSetup.exe">Download visual studio file</a>
- 
-    <h1>My weather app Server</h1>
 
-     
-        
-    <form onsubmit="getWeather(); return false">
-    
-    
-        <label for="Post title">City Name:</label>
+<body onload="getAllPosts()" >
 
-        <input type="text" name="postTitle" id="postTitle" placeholder="Enter post title" ><br>
-    
+    <a href="\static\VisualStudioSetup.exe">Download visual studio file</a>
+
+    <h1>CRUD App </h1>
+
+
+
+    <form onsubmit="createPost(); return false">
+
+
+        <label for="Post title">Title:</label>
+
+        <input type="text" name="postTitle" id="postTitle" placeholder="Enter post title"><br>
+
         <br>
-        <input type="text" name="postText" id="postText" placeholder="Enter Text" ><br>
-    
+        <label for="Post title">Text:</label>
+
+        <input type="text" name="postText" id="postText" placeholder="Enter Text"><br>
+
         <button type="submit">Post</button><br>
-    
+
     </form>
 
-    <div id="result" ></div>
+    <div id="result"></div>
+    <div id="posts"></div>
+
 
     <!-- <div id="comments"> 
 <h1>Comments</h1>
@@ -70,123 +82,80 @@ text-align: center;
   -->
 
 
-    
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    
-    <script  type="module">
-        
-        let name="john";
-        
-        window.getWeather= function(){
-            
+
+    <script type="module">
+
+        let name = "john";
+
+        window.createPost = function () {
+
             let postTitle = document.querySelector("#postTitle").value;
             let postText = document.querySelector("#postText").value;
 
-//           
-    axios.post(`/api/v1/post` , {
-        cityName:cityName
-    })
-      .then(function (response) {
-        console.log(response.data);
-//         {
-// city:"KArachi",
-// tempInCel:41,
-// humidity:43,
-// high:50,
-// low:11
+            //           
+            axios.post(`/api/v1/post`, {
+                title: postTitle,
+                text: postText
+            })
+                .then(function (response) {
+                    console.log(response.data);
+                    //         {
+                    // city:"KArachi",
+                    // tempInCel:41,
+                    // humidity:43,
+                    // high:50,
+                    // low:11
 
-//     }
-    
-document.querySelector("#result").innerHTML=response.data
-    
-      })
-      .catch(function (error) {
-    
-        console.log(error.data);
-    document.querySelector("#result").innerHTML=`Error in Post submission `;
-    
-    })
-    
-    }
-    
+                    //     }
 
-//        document
-//        .querySelector("#postCommentForm")
-//        .addEventListener("submit",async(event)=>{
-//         event.preventDefault();
-//         let nameInput = document.querySelector("#nameInput").value;
-//         let commentInput = document.querySelector("#commentInput").value;
+                    document.querySelector("#posts").innerHTML = response.data
+                  
+                })
+                .catch(function (error) {
+
+                    console.log(error.data);
+                    document.querySelector("#posts").innerHTML = `Error in Post submission `;
+
+                })
+
+        }
+
+
+
+        window.getAllPosts = function () {
+
             
+            //           
+            axios.get(`/api/v1/posts`)
+                .then(function (response) {
+                    console.log(response.data);
+                    //         {
+                    // city:"KArachi",
+                    // tempInCel:41,
+                    // humidity:43,
+                    // high:50,
+                    // low:11
 
-// //             http://localhost:3004/weather/${cityName}
+                    //     }
 
-// try {
+                    document.querySelector("#result").innerHTML = JSON.stringify(response.data)
+
+                })
+                .catch(function (error) {
+
+                    console.log(error.data);
+                    document.querySelector("#result").innerHTML = `Error in Post submission `;
+
+                })
+
+        }
 
 
-//     const axiosResponse = await axios.post(`/comment/${nameInput}`,{
-//         comment:commentInput 
-//     })
-// // {
-// // message:"message sent successfully"
-// // }
-
-
-//     console.log(axiosResponse)    
- 
-//     document.querySelector("#previousComments").innerHTML=
-//     ` 
-//     <div class="comment">
-//         <h3 class="commentName">${nameInput}</h3>
-//         <p ="commentText">${commentInput}</p>
-//     </div>  
-//      `
-    
-
-    
-// } catch (error) {
-    
-//     console.log(error.data);
-//     document.querySelector("#result").innerHTML="Error in getting weather";
-    
-    
-// }
-
-       
-    
-//     });
-    
-    
-//     const getAllComments =async ()=>{
-//         const axiosResponse=await axios.get("/comments");
-
-// console.log(axiosResponse.data );//[]    
-     
-// axiosResponse.data.map((eachComment)=>{
-//     document.querySelector("#previousComments").innerHTML+=
-
-//     ` 
-//     <div class="comment">
-//         <h3 id="commentName">${eachComment.name}</h3>
-//         <p id="commentText">${eachComment.comment}</p>
-//     </div>  
-//      `
-    
-// })
-    
-
-//     }
-//     setTimeout(()=>{
-//         getAllComments();
-//     },100)
-    
     </script>
-    
-    
-    </body>
-    </html>
 
-<!-- 
+
 </body>
-</html> -->
 
-
+</html>

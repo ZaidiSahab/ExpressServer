@@ -66,23 +66,9 @@ router.get('/post/:postId', (req, res, next) => {
 router.put('/post/:userId/:postId', (req, res, next) => {
     console.log('Editing  post !');
 
-    if (isNaN(req.params.postId)) {
-        res.status(403).send(`post id must be a valid number, no alphabet is allowed in post id`)
-    }
+   
 
-    for (let i = 0; i < posts.length; i++) {
-        if (posts[i].id === Number(req.params.postId)) {
-            res.send(posts[i]);
-            return;
-        }
-    }
-    res.send('post not found with id ' + req.params.postId);
-
-
-
-
-
-    res.send('post created');
+    res.send('post updated');
 })
 // DELETE  /api/v1/post/:userId/:postId
 router.delete('/post/:userId/:postId', (req, res, next) => {
