@@ -34,11 +34,14 @@ text-align: center;
     <form onsubmit="getWeather(); return false">
     
     
-        <label for="cityName">City Name:</label>
+        <label for="Post title">City Name:</label>
 
-        <input type="text" name="cityName" id="cityName" placeholder="enter your city name" ><br>
-    <br>
-    <button type="submit"     >Get Weather</button><br>
+        <input type="text" name="postTitle" id="postTitle" placeholder="Enter post title" ><br>
+    
+        <br>
+        <input type="text" name="postText" id="postText" placeholder="Enter Text" ><br>
+    
+        <button type="submit">Post</button><br>
     
     </form>
 
@@ -76,9 +79,11 @@ text-align: center;
         
         window.getWeather= function(){
             
-            let cityName = document.querySelector("#cityName").value;
+            let postTitle = document.querySelector("#postTitle").value;
+            let postText = document.querySelector("#postText").value;
+
 //           
-    axios.post(`/weather` , {
+    axios.post(`/api/v1/post` , {
         cityName:cityName
     })
       .then(function (response) {
@@ -92,13 +97,13 @@ text-align: center;
 
 //     }
     
-document.querySelector("#result").innerHTML=response.data.humidity
+document.querySelector("#result").innerHTML=response.data
     
       })
       .catch(function (error) {
     
         console.log(error.data);
-    document.querySelector("#result").innerHTML="Error in getting weather";
+    document.querySelector("#result").innerHTML=`Error in Post submission `;
     
     })
     

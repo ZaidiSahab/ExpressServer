@@ -1,53 +1,93 @@
+
 import express from 'express';
+
+import { nanoid } from 'nanoid'
 let router = express.Router()
 
+// not recommended at all - server should be stateless
+let posts = [
+    {
+        id: nanoid(),
+        title: "abc post title",
+        text: "some post text"
+    }
+]
 
+// POST    /api/v1/post
+router.post('/post', (req, res, next) => {
+    console.log('single post created!', new Date());
 
-// Get:/api/v1/post/:userId/:postId
+    if (
+        !req.body.title
+        || !req.body.text
+    ) {
+        res.status(403);
+        res.send(`required parameters missing, 
+        example request body:
+        {
+            title: "abc post title",
+            text: "some post text"
+        } `);
+        return;
+    }
 
-router.get('/api/v1/post/:userId/:postId', (req, res, next) => {
+    posts.push({
+        id: nanoid(),
+        title: req.body.title,
+        text: req.body.text,
+    })
 
-    console.log("Signup");
-    res.send("Post Created");
-
+    res.send('post created');
+})
+// GET     /api/v1/posts
+router.get('/posts', (req, res, next) => {
+    console.log('getting all posts !', new Date());
+    res.send(posts);
 })
 
-// Get:/api/v1/post/:userId/:postId
+// GET     /api/v1/post/:postId
+router.get('/post/:postId', (req, res, next) => {
+    console.log('get single post !', new Date());
 
-router.get('/api/v1/posts/:userId/:postId', (req, res, next) => {
+    if (isNaN(req.params.postId)) {
+        res.status(403).send(`post id must be a valid number, no alphabet is allowed in post id`)
+    }
 
-    console.log("Signup");
-    res.send("Post Created");
-
+    for (let i = 0; i < posts.length; i++) {
+        if (posts[i].id === Number(req.params.postId)) {
+            res.send(posts[i]);
+            return;
+        }
+    }
+    res.send('post not found with id ' + req.params.postId);
 })
 
+// PUT     /api/v1/post/:userId/:postId
+router.put('/post/:userId/:postId', (req, res, next) => {
+    console.log('Editing  post !');
 
-// Post:/api/v1/post
+    if (isNaN(req.params.postId)) {
+        res.status(403).send(`post id must be a valid number, no alphabet is allowed in post id`)
+    }
 
-router.post('/api/v1/post', (req, res, next) => {
+    for (let i = 0; i < posts.length; i++) {
+        if (posts[i].id === Number(req.params.postId)) {
+            res.send(posts[i]);
+            return;
+        }
+    }
+    res.send('post not found with id ' + req.params.postId);
 
-    console.log("Signup");
-    res.send("Post Created");
 
+
+
+
+    res.send('post created');
+})
+// DELETE  /api/v1/post/:userId/:postId
+router.delete('/post/:userId/:postId', (req, res, next) => {
+    console.log('this is signup!', new Date());
+    res.send('post created');
 })
 
-// Put: /api/v1/post/:userId/:postId
-router.put('/api/v1/post/:userId/:postId', (req, res, next) => {
-
-    console.log("Signup");
-    res.send("Post Created");
-
-})
-//Delete: /api/v1/post/:userId/:postId
-router.delete('/api/v1/post/:userId/:postId', (req, res, next) => {
-
-    console.log("Signup");
-    res.send("Post Created");
-
-})
-
-
-
-
-
-export default  router
+export default router
