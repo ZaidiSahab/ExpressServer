@@ -7,10 +7,6 @@ import feedRouter from './routes/feed.mjs'
 import authRouter from './routes/auth.mjs'
 
 
-
-
-
-
 router.use(authRouter)
 
 
@@ -31,14 +27,6 @@ router.use((req, res, next) => {
 router.use(postRouter)
 router.use(commentRouter)
 router.use(feedRouter)
-
-
-
- 
-
- 
-
-
 
 
 router.post("/weather", (req, res, next) => {
