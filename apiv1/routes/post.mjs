@@ -31,7 +31,7 @@ router.post('/post', (req, res, next) => {
         return;
     }
 
-    posts.push({
+    posts.unshift({
         id: nanoid(),
         title: req.body.title,
         text: req.body.text,
@@ -49,12 +49,12 @@ router.get('/posts', (req, res, next) => {
 router.get('/post/:postId', (req, res, next) => {
     console.log('get single post !', new Date());
 
-    if (isNaN(req.params.postId)) {
+    if (req.params.postId) {
         res.status(403).send(`post id must be a valid number, no alphabet is allowed in post id`)
     }
 
     for (let i = 0; i < posts.length; i++) {
-        if (posts[i].id === Number(req.params.postId)) {
+        if (posts[i].id === req.params.postId ){
             res.send(posts[i]);
             return;
         }
@@ -70,10 +70,27 @@ router.put('/post/:userId/:postId', (req, res, next) => {
 
     res.send('post updated');
 })
+
+
 // DELETE  /api/v1/post/:userId/:postId
-router.delete('/post/:userId/:postId', (req, res, next) => {
-    console.log('this is signup!', new Date());
-    res.send('post created');
+router.delete('/post/:postId', (req, res, next) => {
+
+    if (!req.params.postId) {
+        res.status(403).send(`post id must be a valid id`)
+    }
+
+    for (let i = 0; i < posts.length; i++) {
+        if (posts[i].id === req.params.postId) {
+            
+            posts.splice(i,1)
+            res.send('post deleted with id' + req.params.postId);
+
+            return;
+        }
+    }
+    res.send('post not found with id ' + req.params.postId);
+
+
 })
 
 export default router
