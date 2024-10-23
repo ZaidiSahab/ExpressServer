@@ -153,7 +153,7 @@
 
                     let postsHtml = ``
 
-                    response.data.map((eachPost)  => {
+                    response.data.map((eachPost) => {
                         postsHtml +=
                             `<div id='card-${eachPost.id}' class="post-card">
                                 <h3>${eachPost.title}</h3>
@@ -195,6 +195,14 @@
                 })
 
         }
+
+        window.editPost=(postId)=>{
+
+
+            console.log("update: ", postId)
+
+        }
+
 
 
 

@@ -54,7 +54,7 @@ router.get('/post/:postId', (req, res, next) => {
     }
 
     for (let i = 0; i < posts.length; i++) {
-        if (posts[i].id === req.params.postId ){
+        if (posts[i].id === req.params.postId) {
             res.send(posts[i]);
             return;
         }
@@ -63,12 +63,48 @@ router.get('/post/:postId', (req, res, next) => {
 })
 
 // PUT     /api/v1/post/:userId/:postId
-router.put('/post/:userId/:postId', (req, res, next) => {
+router.put('/post/:postId', (req, res, next) => {
+    
+    // {
+    //     title:'the title is updated ',
+    //     text:'the text is updated '
+
+    // }
     console.log('Editing  post !');
 
-   
 
-    res.send('post updated');
+    if (!req.params.postId ||
+        !req.body.title ||
+        !req.body.text) 
+        {
+
+        res.status(403).send(`post id must be a valid id
+            example req.body :
+            // {
+            //     title:'the title is updated ',
+            //     text:'the text is updated '
+
+            // }
+            `)
+        }
+
+    for (let i = 0; i < posts.length; i++) {
+        if (posts[i].id === req.params.postId) {
+
+            post [i] ={
+                    title:req.body.title,
+                    text:req.body.text
+    
+                }
+            
+            
+            res.send('post updated with id' + req.params.postId);
+
+            return;
+        }
+    }
+    res.send('post not found with id ' + req.params.postId);
+
 })
 
 
@@ -81,8 +117,8 @@ router.delete('/post/:postId', (req, res, next) => {
 
     for (let i = 0; i < posts.length; i++) {
         if (posts[i].id === req.params.postId) {
-            
-            posts.splice(i,1)
+
+            posts.splice(i, 1)
             res.send('post deleted with id' + req.params.postId);
 
             return;
