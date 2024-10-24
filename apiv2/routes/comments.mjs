@@ -16,7 +16,7 @@ let router = express.Router()
 
 router.get('/comment/:postId/:commentId', (req, res, next) => {
 
-    console.log("Signup");
+    console.log("Signupp");
     res.send("Post Created");
 
 })

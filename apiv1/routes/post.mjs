@@ -78,8 +78,8 @@ router.put('/post/:postId', (req, res, next) => {
         !req.body.text) 
         {
 
-        res.status(403).send(`post id must be a valid id
-            example req.body :
+        res.status(403).send(`example put body :
+        PUT /post/:postId
             // {
             //     title:'the title is updated ',
             //     text:'the text is updated '
