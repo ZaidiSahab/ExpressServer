@@ -196,7 +196,7 @@
 
         }
 
-        window.editPost=(postId , title, text)=>{
+        window.editPost=(postId , title, text)=>{ 
 
 
             console.log("update: ", postId)
@@ -205,7 +205,7 @@
             `<form>
                 title:<input value=${title} />
                 text:<input value=${text} />
-                <button>Save</button>
+                <button onsubmit ='savePost()'>Save</button>
 
                 
              </form>`
